@@ -90,6 +90,8 @@ onmessage = function(event) {
 		var correct = 0;
 		var incorrect = 0;
 		
+		
+		var stats_message = "<h2>Test Data</h2><p>";
 		//run the testing data through the DT, then check if we were right.
 		for(var i = 0;i < testingDataset.length; i++){
 			var answer = testDT(testingDataset[i], root);
@@ -101,21 +103,19 @@ onmessage = function(event) {
 				correct += 1;
 			else
 				incorrect += 1;
-			message.do = "stats";
-			message.data = info+" <strong>answer: "+answer+"<\/strong>";
-			postMessage(JSON.stringify(message));		
+			
+			stats_message += info+"answer: <b>"+answer+"</b><br>";
 		}
+		stats_message+="</p>";
+		
+		stats_message+= "<h2>Statistics</h2><p>";
+		stats_message+= "<p>Correct: "+correct+" ("+parseInt(correct/testingDataset.length*100)+"%), Incorrect: "+incorrect+" ("+parseInt(incorrect/testingDataset.length*100)+"%).<br>";
+		stats_message+= "Tree Size: "+measureTree(root) + " nodes.<br>";
+		stats_message+= "Time Taken: "+ (endTime - startTime ) + " ms.</p>";
 		
 		//output some interesting stats
 		message.do = "stats";
-		message.data = "Correct: "+correct+" ("+parseInt(correct/testingDataset.length*100)+"%), Incorrect: "+incorrect+" ("+parseInt(incorrect/testingDataset.length*100)+"%).";
-		postMessage(JSON.stringify(message));
-		
-		message.do = "stats";
-		message.data = "Tree Size: "+measureTree(root) + " nodes.";
-		postMessage(JSON.stringify(message));
-		message.do = "stats";
-		message.data = "Time Taken: "+ (endTime - startTime ) + " ms.";
+		message.data = stats_message;
 		postMessage(JSON.stringify(message));
 	}
 }
