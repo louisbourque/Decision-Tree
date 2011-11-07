@@ -39,14 +39,13 @@ worker.onerror = function(error) {
 	//console.log(error.message);
 };
 
-$(document).ready(function() {
-	//$.get("datasets/poker-hand-reduced.txt", function(data){
-	//$.get("datasets/weather_nominal_data.txt", function(data){
-	//$.get("datasets/vote_data.txt", function(data){
-	$.get("datasets/mushroom_data.txt", function(data){
+function load_data(url){
+	$("#stats").empty();
+	$("#tree").html("Working... please wait");
+	$.get(url, function(data){
 		worker.postMessage(data);
 	});
-});
+}
 
 function draw(data, root){
 	var result = "<ul>";
@@ -58,6 +57,15 @@ function draw(data, root){
 }
 
 </script>
+<button onclick="load_data('datasets/poker-hand-reduced.txt');">Poker Hand (Reduced)</button>
+<button onclick="load_data('datasets/weather_nominal_data.txt');">Weather (nominal)</button>
+<button onclick="load_data('datasets/weather_numeric_data.txt');">Weather (numeric)</button>
+<button onclick="load_data('datasets/vote_data.txt');">Vote</button>
+<button onclick="load_data('datasets/mushroom_data.txt');">Mushroom</button>
+<button onclick="load_data('datasets/iris_data.txt');">Iris</button>
+<button onclick="load_data('datasets/labor_data.txt');">Labor</button>
+
+
 <ul id="tree"></ul>
 <div id="stats"></div>
 </body>
