@@ -39,7 +39,8 @@ worker.onerror = function(error) {
 	//console.log(error.message);
 };
 
-function load_data(url){
+function load_data(url,question){
+	$("#question").html('<p>'+question+'</p>');
 	$("#stats").empty();
 	$("#tree").html("Working... please wait");
 	$.get(url, function(data){
@@ -57,14 +58,13 @@ function draw(data, root){
 }
 
 </script>
-<button onclick="load_data('datasets/poker-hand-reduced.txt');">Poker Hand (Reduced)</button>
-<button onclick="load_data('datasets/weather_nominal_data.txt');">Weather (nominal)</button>
-<button onclick="load_data('datasets/weather_numeric_data.txt');">Weather (numeric)</button>
-<button onclick="load_data('datasets/vote_data.txt');">Vote</button>
-<button onclick="load_data('datasets/mushroom_data.txt');">Mushroom</button>
-<button onclick="load_data('datasets/iris_data.txt');">Iris</button>
-<button onclick="load_data('datasets/labor_data.txt');">Labor</button>
+<button onclick="load_data('datasets/weather_nominal_data.txt','Should I bring an umbrella?');">Weather (nominal)</button>
+<button onclick="load_data('datasets/weather_numeric_data.txt','Should I bring an umbrella?');">Weather (numeric)</button>
+<button onclick="load_data('datasets/vote_data.txt','Who should I vote for?');">Vote</button>
+<button onclick="load_data('datasets/mushroom_data.txt','What kind of mushroom am I looking at?');">Mushroom</button>
+<button onclick="load_data('datasets/labor_data.txt','Is this labor negotiation good or bad?');">Labor</button>
 
+<div id="question"></div>
 <h2>Decision Tree:</h2>
 <ul id="tree"><li style="list-style-type:none;">Select data to be loaded above.</li></ul>
 <div id="stats"></div>
