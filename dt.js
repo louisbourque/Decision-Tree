@@ -70,7 +70,7 @@ onmessage = function(event) {
 		var attributesLeft = attributes.slice(0,attributes.length-1);
 		
 		//uncomment for questions where the samples have to be taken at random
-		//dataset.shuffle();
+		dataset.shuffle();
 		//divide the dataset into two:
 		var midpoint = Math.floor((dataset.length/100)*50);
 		var trainingDataset = dataset.slice(0,midpoint);
