@@ -2,4 +2,4 @@ This project was an assignment for a university course in Artificial Intelligenc
 
 ==Demo
 
-http://louisbourque.github.com/Decision-Tree/a3.html
+http://louisbourque.github.com/Decision-Tree/
