@@ -3,61 +3,11 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="json2.js"></script>
 <script type="text/javascript" src="jquery.treeview.js"></script>
+<script type="text/javascript" src="dt.js"></script>
 <link type="text/css" href="jquery.treeview.css" rel="stylesheet" />
 </head>
 <body>
 
-<script type="text/javascript">
-var worker = new Worker("dt.js");
-
-worker.onmessage = function(event) {
-	var resultObj = JSON.parse(event.data);
-	//console.log(resultObj);
-	if(resultObj.do == undefined){
-		//console.log(resultObj);
-	}
-	else{
-		switch(resultObj.do){
-			case "debug":
-				//console.log(resultObj.data);
-				break;
-			case "tree":
-				$("#tree").html(draw(resultObj.data));
-				$("#tree").treeview();
-				//console.log(resultObj.data);
-				break;
-			case "stats":
-				$("#stats").append("<p>"+resultObj.data+"<\/p>");
-				break;
-		}
-		
-		
-	}
-	//console.log(event.data);
-};
-worker.onerror = function(error) {
-	//console.log(error.message);
-};
-
-function load_data(url,question){
-	$("#question").html('<p>'+question+'</p>');
-	$("#stats").empty();
-	$("#tree").html("Working... please wait");
-	$.get(url, function(data){
-		worker.postMessage(data);
-	});
-}
-
-function draw(data, root){
-	var result = "<ul>";
- 	for(var i = 0;i<data.children.length;i++){
- 		result += "<li><span>"+data.children[i].name+"<\/span>" + draw(data.children[i]) + "<\/li>";
- 	}
- 	result += "<\/ul>";
- 	return result;
-}
-
-</script>
 <button onclick="load_data('datasets/weather_nominal_data.txt','Should I bring an umbrella?');">Weather (nominal)</button>
 <button onclick="load_data('datasets/weather_numeric_data.txt','Should I bring an umbrella?');">Weather (numeric)</button>
 <button onclick="load_data('datasets/vote_data.txt','Who should I vote for?');">Vote</button>
