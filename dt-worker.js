@@ -1,4 +1,3 @@
-importScripts('json2.js');
 //postMessage('{"do":"debug","data":"'+debug_data+'"}');
 
 Array.prototype.shuffle = function (){ 
